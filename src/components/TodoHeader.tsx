@@ -1,7 +1,7 @@
 const TodoHeader = () => {
   return (
     <footer>
-      <div className="flex justify-between border-1 rounded-2xl">
+      <div className="flex justify-between items-center border-1 rounded-2xl">
         <input
           className="pl-3 outline-0 border-0 font-mono"
           type="text"
