@@ -5,7 +5,7 @@ const TodoMainSection = () => {
   const todos = useAppSelector((state) => state.todos);
 
   return (
-    <ul className="list-disc pl-10 mt-5 text-2xl font-bold space-y-3.5">
+    <ul className="list-disc pl-10 mt-5 text-2xl font-bold space-y-3.5 flex-1">
       {todos.map((todo) => (
         <li className="w-full pr-5">
           <div className="flex justify-between items-center">

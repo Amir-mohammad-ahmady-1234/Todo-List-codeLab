@@ -15,7 +15,7 @@ const TodoHeader = () => {
   }
 
   return (
-    <footer>
+    <header>
       <form
         className="flex justify-between items-center border-1 rounded-2xl"
         onSubmit={handleSubmit}
@@ -31,7 +31,7 @@ const TodoHeader = () => {
           Add
         </button>
       </form>
-    </footer>
+    </header>
   );
 };
 
