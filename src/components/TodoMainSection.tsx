@@ -1,8 +1,14 @@
 import { IoMdClose } from "react-icons/io";
-import { useAppSelector } from "../types/reduxHooksType";
+import { useAppDispatch, useAppSelector } from "../types/reduxHooksType";
+import { removeTodo } from "../features/todos/todosSlice";
 
 const TodoMainSection = () => {
   const todos = useAppSelector((state) => state.todos);
+  const dispatch = useAppDispatch();
+
+  function handleDeleteTodo(todoId: string) {
+    dispatch(removeTodo(todoId));
+  }
 
   return (
     <ul className="divide-y divide-gray-100 dark:divide-gray-700">
@@ -28,7 +34,11 @@ const TodoMainSection = () => {
           >
             {todo.text}
           </span>
-          <button className="btn btn-danger p-2" aria-label="Delete todo">
+          <button
+            className="btn btn-danger p-2"
+            onClick={() => handleDeleteTodo(todo.id)}
+            aria-label="Delete todo"
+          >
             <IoMdClose className="text-white text-xl" />
           </button>
         </li>

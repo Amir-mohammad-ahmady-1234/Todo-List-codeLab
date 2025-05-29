@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 import type { ITodo } from "../../types/todosType";
 
 const initialState: ITodo[] = [
@@ -10,15 +10,18 @@ const todosSlice = createSlice({
   name: "todos",
   initialState,
   reducers: {
-    addTodo: (state, action) => {
+    addTodo: (state, action: PayloadAction<string>) => {
       state.unshift({
         id: crypto.randomUUID(),
         text: action.payload,
         completed: false,
       });
     },
+    removeTodo: (state, action: PayloadAction<string>) => {
+      return state = state.filter((todo) => todo.id !== action.payload);
+    },
   },
 });
 
 export default todosSlice.reducer;
-export const { addTodo } = todosSlice.actions;
+export const { addTodo, removeTodo } = todosSlice.actions;

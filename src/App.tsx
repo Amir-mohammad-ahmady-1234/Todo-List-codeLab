@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import TodoFooter from "./components/TodoFooter";
 import TodoHeader from "./components/TodoHeader";
 import TodoMainSection from "./components/TodoMainSection";
