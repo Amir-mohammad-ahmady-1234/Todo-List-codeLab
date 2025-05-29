@@ -15,20 +15,17 @@ const TodoHeader = () => {
   }
 
   return (
-    <header>
-      <form
-        className="flex justify-between items-center border-1 rounded-2xl"
-        onSubmit={handleSubmit}
-      >
+    <header className="p-4 border-b border-gray-100 dark:border-gray-700">
+      <form className="flex gap-3 items-center" onSubmit={handleSubmit}>
         <input
-          className="pl-3 outline-0 border-0 font-mono"
+          className="input flex-1 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 placeholder-gray-500 dark:placeholder-gray-400"
           type="text"
-          placeholder="Add new task"
+          placeholder="Add new task..."
           value={inputValue}
           onChange={(e) => setInputValue(e.target.value)}
         />
-        <button className="text-2xl font-bold border rounded-2xl p-1 bg-gray-200 cursor-pointer hover:bg-gray-300 transition-all duration-300">
-          Add
+        <button className="btn btn-primary" type="submit">
+          Add Task
         </button>
       </form>
     </header>

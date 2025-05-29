@@ -5,23 +5,39 @@ const TodoMainSection = () => {
   const todos = useAppSelector((state) => state.todos);
 
   return (
-    <ul className="list-disc pl-10 mt-5 text-2xl font-bold space-y-3.5 flex-1">
+    <ul className="divide-y divide-gray-100 dark:divide-gray-700">
       {todos.map((todo) => (
-        <li className="w-full pr-5">
-          <div className="flex justify-between items-center">
-            <span
-              className={`${
-                todo.completed ? "text-green-800" : "text-yellow-400"
-              }`}
-            >
-              {todo.text}
-            </span>
-            <button className="bg-red-600 p-2 rounded-2xl">
-              <IoMdClose className="text-white text-2xl cursor-pointer" />
-            </button>
-          </div>
+        <li
+          key={todo.id}
+          className={`todo-item animate-fade-in ${
+            todo.completed ? "completed" : ""
+          }`}
+        >
+          <input
+            type="checkbox"
+            className="checkbox"
+            checked={todo.completed}
+            readOnly
+          />
+          <span
+            className={`todo-text flex-1 transition-all duration-300 ${
+              todo.completed
+                ? "text-green-600 dark:text-green-400 line-through opacity-70"
+                : "text-yellow-500 dark:text-yellow-400"
+            }`}
+          >
+            {todo.text}
+          </span>
+          <button className="btn btn-danger p-2" aria-label="Delete todo">
+            <IoMdClose className="text-white text-xl" />
+          </button>
         </li>
       ))}
+      {todos.length === 0 && (
+        <li className="text-center py-8 text-gray-500 dark:text-gray-400 animate-fade-in">
+          No tasks yet. Add one above!
+        </li>
+      )}
     </ul>
   );
 };
