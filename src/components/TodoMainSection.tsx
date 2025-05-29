@@ -23,7 +23,6 @@ const TodoMainSection = () => {
             type="checkbox"
             className="checkbox"
             checked={todo.completed}
-            readOnly
           />
           <span
             className={`todo-text flex-1 transition-all duration-300 ${
