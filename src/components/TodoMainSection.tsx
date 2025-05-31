@@ -12,7 +12,7 @@ const TodoMainSection = () => {
   }
 
   return (
-    <ul className="divide-y divide-gray-100 dark:divide-gray-700">
+    <ul className="space-y-2">
       <AnimatePresence>
         {todos.map((todo) => (
           <motion.li
@@ -47,9 +47,13 @@ const TodoMainSection = () => {
           </motion.li>
         ))}
         {todos.length === 0 && (
-          <li className="text-center py-8 text-gray-500 dark:text-gray-400 animate-fade-in">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="empty-state"
+          >
             No tasks yet. Add one above!
-          </li>
+          </motion.div>
         )}
       </AnimatePresence>
     </ul>
