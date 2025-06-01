@@ -18,10 +18,21 @@ const todosSlice = createSlice({
       });
     },
     removeTodo: (state, action: PayloadAction<string>) => {
-      return state = state.filter((todo) => todo.id !== action.payload);
+      return (state = state.filter((todo) => todo.id !== action.payload));
+    },
+    updateTodo: (
+      state,
+      action: PayloadAction<{ id: string; text: string; completed: boolean }>
+    ) => {
+      const { id, text, completed } = action.payload;
+      const todo = state.find((t) => t.id === id);
+      if (todo) {
+        todo.text = text;
+        todo.completed = completed;
+      }
     },
   },
 });
 
 export default todosSlice.reducer;
-export const { addTodo, removeTodo } = todosSlice.actions;
+export const { addTodo, removeTodo, updateTodo } = todosSlice.actions;

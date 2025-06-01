@@ -1,14 +1,33 @@
 import { IoMdClose } from "react-icons/io";
+import { FiEdit2 } from "react-icons/fi";
 import { useAppDispatch, useAppSelector } from "../types/reduxHooksType";
-import { removeTodo } from "../features/todos/todosSlice";
+import { removeTodo, updateTodo } from "../features/todos/todosSlice";
 import { AnimatePresence, motion } from "framer-motion";
+import { useState } from "react";
 
 const TodoMainSection = () => {
   const todos = useAppSelector((state) => state.todos);
   const dispatch = useAppDispatch();
+  const [editingId, setEditingId] = useState<string | null>(null);
+  const [editText, setEditText] = useState("");
 
   function handleDeleteTodo(todoId: string) {
     dispatch(removeTodo(todoId));
+  }
+
+  function handleEditClick(todoId: string, currentText: string) {
+    setEditingId(todoId);
+    setEditText(currentText);
+  }
+
+  function handleEditSave(todo: { id: string; completed: boolean }) {
+    if (editText.trim() !== "") {
+      dispatch(
+        updateTodo({ id: todo.id, text: editText, completed: todo.completed })
+      );
+      setEditingId(null);
+      setEditText("");
+    }
   }
 
   return (
@@ -27,16 +46,47 @@ const TodoMainSection = () => {
               type="checkbox"
               className="checkbox"
               checked={todo.completed}
+              onChange={(e) =>
+                dispatch(
+                  updateTodo({
+                    id: todo.id,
+                    text: todo.text,
+                    completed: e.target.checked,
+                  })
+                )
+              }
             />
-            <span
-              className={`todo-text flex-1 transition-all duration-300 ${
-                todo.completed
-                  ? "text-green-600 dark:text-green-400 line-through opacity-70"
-                  : "text-yellow-500 dark:text-yellow-400"
-              }`}
+            {editingId === todo.id ? (
+              <input
+                className="input flex-1 mr-2"
+                value={editText}
+                autoFocus
+                onChange={(e) => setEditText(e.target.value)}
+                onBlur={() => handleEditSave(todo)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") handleEditSave(todo);
+                  if (e.key === "Escape") setEditingId(null);
+                }}
+              />
+            ) : (
+              <span
+                className={`todo-text flex-1 transition-all duration-300 ${
+                  todo.completed
+                    ? "text-green-600 dark:text-green-400 line-through opacity-70"
+                    : "text-yellow-500 dark:text-yellow-400"
+                }`}
+                onDoubleClick={() => handleEditClick(todo.id, todo.text)}
+              >
+                {todo.text}
+              </span>
+            )}
+            <button
+              className="btn btn-edit p-2 mr-2"
+              onClick={() => handleEditClick(todo.id, todo.text)}
+              aria-label="Edit todo"
             >
-              {todo.text}
-            </span>
+              <FiEdit2 className=" text-xl" />
+            </button>
             <button
               className="btn btn-danger p-2"
               onClick={() => handleDeleteTodo(todo.id)}
