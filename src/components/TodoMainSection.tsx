@@ -8,7 +8,7 @@ import TodoTabs from "./TodoTabs";
 
 const TodoMainSection = () => {
   const todos = useAppSelector((state) =>
-    state.todos.filteredTodos.length ? state.todos.filteredTodos : state.todos.allTodos
+    state.todos.filteredTodos
   );
   const dispatch = useAppDispatch();
   const [editingId, setEditingId] = useState<string | null>(null);

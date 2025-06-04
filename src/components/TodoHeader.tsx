@@ -2,6 +2,7 @@ import { useState } from "react";
 import { addTodo, searchTodos } from "../features/todos/todosSlice";
 import { useAppDispatch } from "../types/reduxHooksType";
 import { FiSearch } from "react-icons/fi";
+import { useEffect } from "react";
 
 const TodoHeader = () => {
   const [inputValue, setInputValue] = useState("");
@@ -21,6 +22,13 @@ const TodoHeader = () => {
     dispatch(searchTodos(seachInputValue));
     setSeachInputValue("");
   }
+
+  useEffect(
+    function () {
+      dispatch(searchTodos(seachInputValue));
+    },
+    [seachInputValue]
+  );
 
   return (
     <header className="p-4 border-b border-gray-100 dark:border-gray-700 flex flex-col item-center justify-center gap-5">
