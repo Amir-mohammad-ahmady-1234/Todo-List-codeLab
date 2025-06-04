@@ -1,7 +1,7 @@
 import { useAppSelector } from "../types/reduxHooksType";
 
 const TodoFooter = () => {
-  const todos = useAppSelector((state) => state.todos);
+  const todos = useAppSelector((state) => state.todos.allTodos);
 
   // stored state
   const todosLength = todos.length;

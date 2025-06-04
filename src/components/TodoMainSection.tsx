@@ -7,7 +7,9 @@ import { useState } from "react";
 import TodoTabs from "./TodoTabs";
 
 const TodoMainSection = () => {
-  const todos = useAppSelector((state) => state.todos);
+  const todos = useAppSelector((state) =>
+    state.todos.filteredTodos.length ? state.todos.filteredTodos : state.todos.allTodos
+  );
   const dispatch = useAppDispatch();
   const [editingId, setEditingId] = useState<string | null>(null);
   const [editText, setEditText] = useState("");
