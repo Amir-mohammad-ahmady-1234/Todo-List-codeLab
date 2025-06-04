@@ -5,6 +5,7 @@ import { FiSearch } from "react-icons/fi";
 
 const TodoHeader = () => {
   const [inputValue, setInputValue] = useState("");
+  const [seachInputValue, setSeachInputValue] = useState("");
   const dispatch = useAppDispatch();
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
@@ -15,20 +16,30 @@ const TodoHeader = () => {
     }
   }
 
-  function handleSearchTodos(e) {
-    // e.preventDefault()
-    dispatch(searchTodos(inputValue));
+  function handleSearchTodosSubmit(e) {
+    e.preventDefault();
+    dispatch(searchTodos(seachInputValue));
+    setSeachInputValue("");
   }
 
   return (
-    <header className="p-4 border-b border-gray-100 dark:border-gray-700 flex item-center justify-center">
-        <button
-          className="cursor-pointer flex-1/10 flex items-center justify-center"
-          onClick={(e) => handleSearchTodos(e)}
-        >
+    <header className="p-4 border-b border-gray-100 dark:border-gray-700 flex flex-col item-center justify-center gap-5">
+      <form
+        onSubmit={handleSearchTodosSubmit}
+        className="flex items-center justify-center gap-10"
+      >
+        <button className="cursor-pointer flex items-center justify-center">
           <FiSearch />
         </button>
-      <form className="flex gap-3 items-center flex-2000" onSubmit={handleSubmit}>
+        <input
+          type="search"
+          placeholder="seacrh for todos ..."
+          value={seachInputValue}
+          onChange={(e) => setSeachInputValue(e.target.value)}
+          className="text-center border-2 border-gray-700 rounded-3xl  outline-0 dark:border-2 dark:border-gray-200"
+        />
+      </form>
+      <form className="flex gap-3 items-center" onSubmit={handleSubmit}>
         <input
           className="input flex-1 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 placeholder-gray-500 dark:placeholder-gray-400"
           type="text"
