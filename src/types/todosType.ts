@@ -4,5 +4,9 @@ export interface ITodo {
     text: string;
     completed: boolean;
   }[];
-  filteredTodos: [];
+  filteredTodos: {
+    id: string;
+    text: string;
+    completed: boolean;
+  }[];
 }

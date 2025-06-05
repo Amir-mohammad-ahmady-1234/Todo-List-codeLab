@@ -1,12 +1,14 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 import type { ITodo } from "../../types/todosType";
 
+const todosData = [
+  { id: crypto.randomUUID(), text: "go to gym", completed: true },
+  { id: crypto.randomUUID(), text: "learn Nextjs", completed: false },
+];
+
 const initialState: ITodo = {
-  allTodos: [
-    { id: crypto.randomUUID(), text: "go to gym", completed: true },
-    { id: crypto.randomUUID(), text: "learn Nextjs", completed: false },
-  ],
-  filteredTodos: [],
+  allTodos: todosData,
+  filteredTodos: todosData,
 };
 
 const todosSlice = createSlice({
@@ -19,14 +21,22 @@ const todosSlice = createSlice({
         text: action.payload,
         completed: false,
       });
-      state.filteredTodos = state.allTodos;
+      state.filteredTodos = [...state.allTodos];
     },
+
     removeTodo: (state, action: PayloadAction<string>) => {
       state.allTodos = state.allTodos.filter(
         (todo) => todo.id !== action.payload
       );
-      state.filteredTodos = state.allTodos;
+      state.filteredTodos = [...state.allTodos];
     },
+
+    searchTodos: (state, action: PayloadAction<string>) => {
+      state.filteredTodos = state.allTodos.filter((todo) =>
+        todo.text.toLowerCase().includes(action.payload.toLowerCase())
+      );
+    },
+
     updateTodo: (
       state,
       action: PayloadAction<{ id: string; text: string; completed: boolean }>
@@ -43,11 +53,6 @@ const todosSlice = createSlice({
         todoInFiltered.text = text;
         todoInFiltered.completed = completed;
       }
-    },
-    searchTodos: (state, action: PayloadAction<string>) => {
-      state.filteredTodos = state.allTodos.filter((todo) => {
-        return todo.text.includes(action.payload);
-      });
     },
   },
 });
