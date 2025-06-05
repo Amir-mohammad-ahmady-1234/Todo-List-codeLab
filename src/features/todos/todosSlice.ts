@@ -1,14 +1,14 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 import type { ITodo } from "../../types/todosType";
 
-const todosData = [
-  { id: crypto.randomUUID(), text: "go to gym", completed: true },
-  { id: crypto.randomUUID(), text: "learn Nextjs", completed: false },
-];
+// const todosData = [
+//   { id: crypto.randomUUID(), text: "go to gym", completed: true },
+//   { id: crypto.randomUUID(), text: "learn Nextjs", completed: false },
+// ];
 
 const initialState: ITodo = {
-  allTodos: todosData,
-  filteredTodos: todosData,
+  allTodos: [],
+  filteredTodos: [],
 };
 
 const todosSlice = createSlice({
