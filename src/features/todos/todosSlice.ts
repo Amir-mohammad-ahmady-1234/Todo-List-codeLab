@@ -7,8 +7,8 @@ const todosData = [
 ];
 
 const initialState: ITodo = {
-  allTodos: todosData,
-  filteredTodos: todosData,
+  allTodos,
+  filteredTodos,
 };
 
 const todosSlice = createSlice({
