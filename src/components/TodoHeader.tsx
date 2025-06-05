@@ -3,7 +3,7 @@ import { addTodo, searchTodos } from "../features/todos/todosSlice";
 import { useAppDispatch } from "../types/reduxHooksType";
 import { FiSearch } from "react-icons/fi";
 import { ImSpinner2 } from "react-icons/im"; // spinner icon
-import debounce from "lodash/debounce"; // وارد کردن debounce
+import debounce from "lodash/debounce"; 
 
 const TodoHeader = () => {
   const [inputValue, setInputValue] = useState("");
@@ -11,7 +11,7 @@ const TodoHeader = () => {
   const [isSearching, setIsSearching] = useState(false);
   const dispatch = useAppDispatch();
 
-  // تابع افزودن تسک جدید
+  
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     if (inputValue.trim()) {
@@ -20,41 +20,40 @@ const TodoHeader = () => {
     }
   }
 
-  // تابع جستجو با debounce ساخته شده
+  
   const debouncedSearch = useMemo(
     () =>
       debounce((query: string) => {
         setIsSearching(true);
         dispatch(searchTodos(query));
-        setTimeout(() => setIsSearching(false), 500); // شبیه‌سازی لودینگ
-      }, 500), // تاخیر 500ms
+        setTimeout(() => setIsSearching(false), 500); 
+      }, 500), 
     [dispatch]
   );
 
-  // هر بار که searchInputValue تغییر کنه، تابع debounce شده اجرا میشه
+  
   useEffect(() => {
     if (searchInputValue.trim()) {
       debouncedSearch(searchInputValue);
     } else {
-      // اگر ورودی خالی شد می‌تونی یک سرچ خالی بزنی یا وضعیت جستجو رو reset کنی
-      dispatch(searchTodos("")); // یا هر اکشن دلخواه
+     
+      dispatch(searchTodos(""));  
     }
-    // در زمان unmount کامپوننت debounce رو cancel کن
+    
     return () => {
       debouncedSearch.cancel();
     };
   }, [searchInputValue, debouncedSearch, dispatch]);
 
-  // ارسال فرم جستجو (با دکمه اینتر)
+  
   function handleSearchTodosSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    // با وجود debounce، می‌تونی اینجا هم جستجو رو سریع بفرستی یا فقط مقدار رو reset کنی
     if (searchInputValue.trim()) {
       dispatch(searchTodos(searchInputValue));
       setIsSearching(true);
       setTimeout(() => setIsSearching(false), 500);
       setSearchInputValue("");
-      debouncedSearch.cancel(); // لغو جستجوی debounce شده که دیگه لازم نیست
+      debouncedSearch.cancel();
     }
   }
 
