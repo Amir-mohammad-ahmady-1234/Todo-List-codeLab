@@ -7,8 +7,13 @@ import type { ITodo } from "../../types/todosType";
 // ];
 
 const initialState: ITodo = {
+<<<<<<< HEAD
   allTodos: [],
   filteredTodos: [],
+=======
+  allTodos:[],
+  filteredTodos:[],
+>>>>>>> 5dc7851ad2dd625472df8894fc0cd23795618677
 };
 
 const todosSlice = createSlice({

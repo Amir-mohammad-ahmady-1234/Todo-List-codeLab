@@ -2,8 +2,13 @@ import { useState, useEffect, useMemo } from "react";
 import { addTodo, searchTodos } from "../features/todos/todosSlice";
 import { useAppDispatch } from "../types/reduxHooksType";
 import { FiSearch } from "react-icons/fi";
+<<<<<<< HEAD
 import { ImSpinner2 } from "react-icons/im";
 import debounce from "lodash/debounce";
+=======
+import { ImSpinner2 } from "react-icons/im"; // spinner icon
+import debounce from "lodash/debounce"; 
+>>>>>>> 5dc7851ad2dd625472df8894fc0cd23795618677
 
 const TodoHeader = () => {
   const [inputValue, setInputValue] = useState("");
@@ -11,6 +16,10 @@ const TodoHeader = () => {
   const [isSearching, setIsSearching] = useState(false);
   const dispatch = useAppDispatch();
 
+<<<<<<< HEAD
+=======
+  
+>>>>>>> 5dc7851ad2dd625472df8894fc0cd23795618677
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     if (inputValue.trim()) {
@@ -19,27 +28,51 @@ const TodoHeader = () => {
     }
   }
 
+<<<<<<< HEAD
+=======
+  
+>>>>>>> 5dc7851ad2dd625472df8894fc0cd23795618677
   const debouncedSearch = useMemo(
     () =>
       debounce((query: string) => {
         setIsSearching(true);
         dispatch(searchTodos(query));
+<<<<<<< HEAD
         setTimeout(() => setIsSearching(false), 500);
       }, 500),
     [dispatch]
   );
 
+=======
+        setTimeout(() => setIsSearching(false), 500); 
+      }, 500), 
+    [dispatch]
+  );
+
+  
+>>>>>>> 5dc7851ad2dd625472df8894fc0cd23795618677
   useEffect(() => {
     if (searchInputValue.trim()) {
       debouncedSearch(searchInputValue);
     } else {
+<<<<<<< HEAD
       dispatch(searchTodos(""));
     }
+=======
+     
+      dispatch(searchTodos(""));  
+    }
+    
+>>>>>>> 5dc7851ad2dd625472df8894fc0cd23795618677
     return () => {
       debouncedSearch.cancel();
     };
   }, [searchInputValue, debouncedSearch, dispatch]);
 
+<<<<<<< HEAD
+=======
+  
+>>>>>>> 5dc7851ad2dd625472df8894fc0cd23795618677
   function handleSearchTodosSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     if (searchInputValue.trim()) {
@@ -47,7 +80,11 @@ const TodoHeader = () => {
       setIsSearching(true);
       setTimeout(() => setIsSearching(false), 500);
       setSearchInputValue("");
+<<<<<<< HEAD
       debouncedSearch.cancel(); 
+=======
+      debouncedSearch.cancel();
+>>>>>>> 5dc7851ad2dd625472df8894fc0cd23795618677
     }
   }
 
