@@ -19,21 +19,29 @@ const todosSlice = createSlice({
         text: action.payload,
         completed: false,
       });
+      state.filteredTodos = state.allTodos;
     },
     removeTodo: (state, action: PayloadAction<string>) => {
-      state.filteredTodos = state.allTodos.filter(
+      state.allTodos = state.allTodos.filter(
         (todo) => todo.id !== action.payload
       );
+      state.filteredTodos = state.allTodos;
     },
     updateTodo: (
       state,
       action: PayloadAction<{ id: string; text: string; completed: boolean }>
     ) => {
-      const { id, text, completed } = action.payload;
-      const todo = state.filteredTodos.find((t) => t.id === id);
-      if (todo) {
-        todo.text = text;
-        todo.completed = completed;
+      const { id, text, completed } = action.payload; // ✅ id رو اضافه کردیم
+
+      const todoInAll = state.allTodos.find((t) => t.id === id);
+      if (todoInAll) {
+        todoInAll.text = text;
+        todoInAll.completed = completed;
+      }
+      const todoInFiltered = state.filteredTodos.find((t) => t.id === id);
+      if (todoInFiltered) {
+        todoInFiltered.text = text;
+        todoInFiltered.completed = completed;
       }
     },
     searchTodos: (state, action: PayloadAction<string>) => {

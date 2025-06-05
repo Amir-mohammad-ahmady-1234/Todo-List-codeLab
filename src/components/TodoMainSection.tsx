@@ -7,9 +7,7 @@ import { useState } from "react";
 import TodoTabs from "./TodoTabs";
 
 const TodoMainSection = () => {
-  const todos = useAppSelector((state) =>
-    state.todos.filteredTodos
-  );
+  const todos = useAppSelector((state) => state.todos.filteredTodos);
   const dispatch = useAppDispatch();
   const [editingId, setEditingId] = useState<string | null>(null);
   const [editText, setEditText] = useState("");
@@ -45,7 +43,11 @@ const TodoMainSection = () => {
 
   return (
     <div className="space-y-4">
-      <TodoTabs activeTab={activeTab} onTabChange={setActiveTab} />
+      <TodoTabs
+        activeTab={activeTab}
+        onTabChange={setActiveTab}
+        totalCount={todos.length}
+      />
       <ul className="space-y-2">
         <AnimatePresence>
           {filteredTodos.map((todo) => (
